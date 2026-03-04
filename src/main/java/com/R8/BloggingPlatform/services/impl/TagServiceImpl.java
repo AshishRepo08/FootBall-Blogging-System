@@ -32,7 +32,8 @@ public class TagServiceImpl implements TagService {
 
         List<Tag> newTags = tagNames.stream()
                 .filter(name -> !existingTagNames.contains(name))
-                .map(name -> Tag.builder().name(name).posts(new HashSet<>()).build()).toList();
+                .map(name -> Tag.builder().name(name).posts(new HashSet<>()).build())
+                .toList();
 
         List<Tag> savedTags = new ArrayList<>();
         if(!newTags.isEmpty()) {

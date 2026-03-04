@@ -2,8 +2,11 @@ package com.R8.BloggingPlatform.controllers;
 
 import com.R8.BloggingPlatform.domain.dtos.AuthResponse;
 import com.R8.BloggingPlatform.domain.dtos.LoginRequest;
+import com.R8.BloggingPlatform.domain.entites.User;
 import com.R8.BloggingPlatform.services.AuthenticationService;
+import com.R8.BloggingPlatform.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,8 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
 
+    private final UserService userService;
+
     @PostMapping
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest){
         UserDetails userDetails = authenticationService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
@@ -30,5 +35,13 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(authResponse);
+    }
+
+    @PostMapping("/createNewUser")
+    public ResponseEntity<?> createNewUser(@RequestBody User newUser) {
+        System.out.println("In Controller");
+        System.out.println("Request Body:"+newUser);
+        User createdUser = userService.createNewUser(newUser);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 }
