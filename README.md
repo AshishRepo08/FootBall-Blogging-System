@@ -1,6 +1,6 @@
 #⚽ Football Blog Platform
 
-A production-grade REST API for a multi-user football blogging system built with Spring Boot. Public users can browse and search published posts freely. Authenticated users can create and manage their own posts, organise content with categories and tags, and control visibility through a draft/publish workflow.
+A production-grade REST API for a multi-user football blogging system built with Spring Boot. Public users can browse and search published posts freely. Authenticated users can create and manage posts, organise content with categories and tags, and control visibility through a draft/publish workflow.
 
 ---
 
@@ -22,7 +22,7 @@ A production-grade REST API for a multi-user football blogging system built with
 
 - **Public read access** — anyone can browse all published posts without logging in
 - **JWT & password authentication** — login via credentials or JWT token to access write operations
-- **Author-scoped editing** — users can only edit or delete their own posts
+- **Authenticated User-scoped editing** — authenticated users can only edit or delete posts
 - **Category & Tag management** — authenticated users can create and assign categories and tags to posts
 - **Flexible search** — filter posts by category, tag, both, or neither
 - **Draft/publish workflow** — save posts as drafts (private) and publish when ready (public)
@@ -37,6 +37,7 @@ A production-grade REST API for a multi-user football blogging system built with
 | Language | Java 17 |
 | Framework | Spring Boot, Spring MVC, Spring Security |
 | Authentication | JWT (JSON Web Tokens) |
+| Docker | For PostgreSQL, Adminer |
 | Database | PostgreSQL |
 | ORM | JPA / Hibernate |
 | Build Tool | Maven |
@@ -62,7 +63,6 @@ The application follows a standard **3-tier layered architecture**:
 **Key design decisions:**
 
 - **Stateless authentication** — JWT tokens are validated on every request; no server-side session state is maintained
-- **Author ownership enforced in service layer** — edit/delete operations check that the authenticated user matches the post author before proceeding, keeping security logic centralised
 - **Draft visibility controlled at query level** — draft posts are filtered out of all public-facing queries; authenticated authors see their own drafts via a separate scoped query
 - **Search built with dynamic query composition** — category and tag filters are applied conditionally so the same endpoint handles all combinations without redundant query methods
 - **Global exception handler** — a `@ControllerAdvice` class intercepts all exceptions and returns consistent, structured error responses across the API
