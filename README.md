@@ -1,4 +1,4 @@
-# Football Blog Platform
+#⚽ Football Blog Platform
 
 A production-grade REST API for a multi-user football blogging system built with Spring Boot. Public users can browse and search published posts freely. Authenticated users can create and manage their own posts, organise content with categories and tags, and control visibility through a draft/publish workflow.
 
@@ -137,7 +137,7 @@ http://localhost:8080/swagger-ui.html
 
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
-| `POST` | `/api/auth/register` | Public | Register a new user |
+| `POST` | `/api/auth/login/createNewUser` | Authenticated | Register a new user |
 | `POST` | `/api/auth/login` | Public | Login and receive JWT token |
 
 ### Posts
@@ -146,11 +146,10 @@ http://localhost:8080/swagger-ui.html
 |---|---|---|---|
 | `GET` | `/api/posts` | Public | Get all published posts (supports filtering) |
 | `GET` | `/api/posts/{id}` | Public | Get a single published post |
-| `GET` | `/api/posts/my` | Authenticated | Get all posts by the logged-in user (including drafts) |
+| `GET` | `/api/posts/drafts` | Authenticated | Get all draft posts by the logged-in user |
 | `POST` | `/api/posts` | Authenticated | Create a new post |
-| `PUT` | `/api/posts/{id}` | Author only | Update a post |
-| `DELETE` | `/api/posts/{id}` | Author only | Delete a post |
-| `PATCH` | `/api/posts/{id}/publish` | Author only | Publish a draft post |
+| `PUT` | `/api/posts/{id}` | Authenticated | Update a post |
+| `DELETE` | `/api/posts/{id}` | Authenticated | Delete a post |
 
 ### Categories
 
